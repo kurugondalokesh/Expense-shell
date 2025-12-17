@@ -27,6 +27,7 @@ VALIDATE (){
 }
 
 
+
 echo "Script started executing at $(date)" | tee -a $LOGS_FILE
 
 CHECKROOT
@@ -40,6 +41,15 @@ VALIDATE $? "Enabling Mysql"
 systemctl start mysqld &>>$LOGS_FILE
 VALIDATE $? "Starting Mysql"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGS_FILE
-VALIDATE $? "Changing root password"
+# mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGS_FILE
+# VALIDATE $? "Changing root password"
 
+
+mysql -h 172.31.67.170 -u root -pExpenseApp@1 -e 'show databases' &>>$LOGS_FILE
+
+if [ $? -ne 0 ]
+then 
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGS_FILE
+else
+    echo "Password already updated"
+fi
