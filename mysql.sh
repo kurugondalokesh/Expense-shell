@@ -1,9 +1,9 @@
 #!/bin/bash
 
-$LOGS_FOLDER="/var/log/expense"
-$SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-$TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
-$LOGS_FILE="$LOGS_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log"
+LOGS_FOLDER="/var/log/expense"
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+LOGS_FILE="$LOGS_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log"
 mkdir -p $LOGS_FOLDER
 
 $USERID=$(id -u)
