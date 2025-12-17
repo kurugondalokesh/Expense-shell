@@ -6,7 +6,7 @@ TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOGS_FILE="$LOGS_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log"
 mkdir -p $LOGS_FOLDER
 
-$USERID=$(id -u)
+USERID=$(id -u)
 
 CHECKROOT (){
     if [ $USERID -ne 0 ]
