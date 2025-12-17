@@ -31,15 +31,15 @@ echo "Script started executing at $(date)" | tee -a $LOGS_FILE
 
 CHECKROOT
 
-dnf install mysql-server -y
-VALIDATE $? "Installing Mysql" | tee -a $LOGS_FILE
+dnf install mysql-server -y &>>$LOGS_FILE
+VALIDATE $? "Installing Mysql" 
 
-systemctl enable mysqld
-VALIDATE $? "Enabling Mysql" | tee -a $LOGS_FILE
+systemctl enable mysqld &>>$LOGS_FILE   
+VALIDATE $? "Enabling Mysql"
 
-systemctl start mysqld
-VALIDATE $? "Starting Mysql" | tee -a $LOGS_FILE
+systemctl start mysqld &>>$LOGS_FILE
+VALIDATE $? "Starting Mysql"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1
-VALIDATE $? "Changing root password" | tee -a $LOGS_FILE
+mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGS_FILE
+VALIDATE $? "Changing root password"
 
