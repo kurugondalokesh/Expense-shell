@@ -49,7 +49,9 @@ mysql -h 172.31.67.170 -u root -pExpenseApp@1 -e 'show databases' &>>$LOGS_FILE
 
 if [ $? -ne 0 ]
 then 
+    echo "Mysql root Password is setting up" | tee -a $LOGS_FILE
     mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGS_FILE
+    VALIDATE $? "Setting Mysql root password"
 else
-    echo "Password already updated"
+    echo "Password already updated" | tee -a $LOGS_FILE
 fi
