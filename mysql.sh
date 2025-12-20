@@ -45,7 +45,7 @@ VALIDATE $? "Starting Mysql"
 # VALIDATE $? "Changing root password"
 
 
-mysql -h 172.31.67.170 -u root -pExpenseApp@1 -e 'show databases' &>>$LOGS_FILE
+mysql -h 172.31.19.68 -u root -pExpenseApp@1 -e 'show databases' &>>$LOGS_FILE
 
 if [ $? -ne 0 ]
 then 
