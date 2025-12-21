@@ -65,4 +65,22 @@ VALIDATE $? "Extracting code"
 npm install &>> $LOGS_FILE
 VALIDATE $? "Installing code"
 
-cp /home/ec2-user/Expense-shell/backend.service /etc/systemd/system/backend.service
+cp /home/ec2-user/Expense-shell/backend.service /etc/systemd/system/backend.service &>> $LOGS_FILE
+VALIDATE $? "Copying code"
+
+#load the data before running Backend
+
+dnf install mysql -y &>> $LOGS_FILE
+VALIDATE $? "Installing mysql"
+
+mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $LOGS_FILE
+VALIDATE $? "Schema loading" 
+
+systemctl daemon-reload &>> $LOGS_FILE
+VALIDATE $? "Demon Reload"
+
+systemctl enable backend &>> $LOGS_FILE
+VALIDATE $? "Enable backend"
+
+systemctl restart backend &>> $LOGS_FILE
+VALIDATE $? "EnRestartable backend"
