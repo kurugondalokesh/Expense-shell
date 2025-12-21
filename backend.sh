@@ -73,7 +73,7 @@ VALIDATE $? "Copying code"
 dnf install mysql -y &>> $LOGS_FILE
 VALIDATE $? "Installing mysql"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $LOGS_FILE
+mysql -h 172.31.19.68 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $LOGS_FILE
 VALIDATE $? "Schema loading" 
 
 systemctl daemon-reload &>> $LOGS_FILE
