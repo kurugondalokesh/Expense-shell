@@ -41,5 +41,13 @@ VALIDATE $? "Enabling Node"
 dnf install nodejs -y &>> $LOGS_FILE
 VALIDATE $? "Installing Node"
 
-useradd expense &>> $LOGS_FILE
-VALIDATE $? "Creating user"
+id expense &>> $LOGS_FILE
+
+if [ $? -ne 0 ]
+then
+    useradd expense &>> $LOGS_FILE
+    VALIDATE $? "Creating user"
+else
+    echo "User already created so skipping"
+fi
+
