@@ -83,4 +83,4 @@ systemctl enable backend &>> $LOGS_FILE
 VALIDATE $? "Enable backend"
 
 systemctl restart backend &>> $LOGS_FILE
-VALIDATE $? "EnRestartable backend"
+VALIDATE $? "Restart backend"
