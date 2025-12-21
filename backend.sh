@@ -45,6 +45,7 @@ id expense &>> $LOGS_FILE
 
 if [ $? -ne 0 ]
 then
+    echo "User is not created cating" | tee -a $LOGS_FILE
     useradd expense &>> $LOGS_FILE
     VALIDATE $? "Creating user"
 else
