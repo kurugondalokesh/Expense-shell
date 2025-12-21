@@ -52,3 +52,17 @@ else
     echo "User already created so skipping"
 fi
 
+mkdir -p /app
+
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>> $LOGS_FILE
+VALIDATE $? "Downloading Backend application"
+
+cd /app
+rm -rf /app/* #remove the existing code
+unzip /tmp/backend.zip &>> $LOGS_FILE
+VALIDATE $? "Extracting code"
+
+npm install &>> $LOGS_FILE
+VALIDATE $? "Installing code"
+
+cp /home/ec2-user/Expense-shell/backend.service /etc/systemd/system/backend.service
