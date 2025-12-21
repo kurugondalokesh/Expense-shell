@@ -27,5 +27,31 @@ VALIDATE (){
 }
 
 
-
 echo "Script started executing at $(date)" | tee -a $LOGS_FILE
+
+CHECKROOT
+
+dnf install nginx -y &>> $LOGS_FILE
+VALIDATE $? "Installing Nginx"
+
+systemctl enable nginx &>> $LOGS_FILE
+VALIDATE $? "Enabling Nginx"
+
+systemctl start nginx &>> $LOGS_FILE
+VALIDATE $? "Starting Nginx"
+
+rm -rf /usr/share/nginx/html/* &>> $LOGS_FILE
+VALIDATE $? "Removing Existing files"
+
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>> $LOGS_FILE
+VALIDATE $? "Downloading frontend code"
+
+cd /usr/share/nginx/html
+unzip /tmp/frontend.zip &>> $LOGS_FILE
+VALIDATE $? "Extracting frontend code"
+
+cp /home/ec2-user/Expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>> $LOGS_FILE
+VALIDATE $? "Copying frontend config"
+
+systemctl restart nginx &>> $LOGS_FILE
+VALIDATE $? "Restarting nginx"
